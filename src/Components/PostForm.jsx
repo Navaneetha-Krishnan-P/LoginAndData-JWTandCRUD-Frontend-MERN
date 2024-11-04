@@ -10,7 +10,7 @@ const PostForm = () => {
 
     const fetchPosts = async () => {
         const token = localStorage.getItem('token');
-        const response = await axios.get('http://localhost:5000/posts', {
+        const response = await axios.get('https://login-and-datas-jw-tand-crud-backend-mern.vercel.app/posts', {
             headers: { Authorization: `Bearer ${token}` },
         });
         setPosts(response.data);
@@ -24,11 +24,11 @@ const PostForm = () => {
         e.preventDefault();
         const token = localStorage.getItem('token');
         if (editingPostId) {
-            await axios.put(`http://localhost:5000/posts/${editingPostId}`, { heading, description }, {
+            await axios.put(`https://login-and-datas-jw-tand-crud-backend-mern.vercel.app/posts/${editingPostId}`, { heading, description }, {
                 headers: { Authorization: `Bearer ${token}` },
             });
         } else {
-            await axios.post('http://localhost:5000/posts', { heading, description }, {
+            await axios.post('https://login-and-datas-jw-tand-crud-backend-mern.vercel.app/posts', { heading, description }, {
                 headers: { Authorization: `Bearer ${token}` },
             });
         }
