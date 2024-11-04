@@ -46,7 +46,7 @@ const PostForm = () => {
 
     const handleDelete = async (id) => {
         const token = localStorage.getItem('token');
-        await axios.delete(`http://localhost:5000/posts/${id}`, {
+        await axios.delete(`https://login-and-datas-jw-tand-crud-backend-mern.vercel.app/${id}`, {
             headers: { Authorization: `Bearer ${token}` },
         });
         fetchPosts();

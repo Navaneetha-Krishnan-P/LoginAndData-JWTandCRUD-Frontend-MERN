@@ -13,7 +13,7 @@ const Register = () => {
     const handleRegister = async (e) => {
         e.preventDefault();
         try {
-            await axios.post('http://localhost:5000/register', { username, email, password });
+            await axios.post('https://login-and-datas-jw-tand-crud-backend-mern.vercel.app', { username, email, password });
             alert("Registration Successful. Login to continue...");
             navigate('/');
         } catch (err) {
