@@ -12,9 +12,9 @@ const Login = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('https://login-and-datas-jw-tand-crud-backend-mern.vercel.app', { email, password });
+            const response = await axios.post('https://login-and-datas-jw-tand-crud-backend-mern.vercel.app/login', { email, password });
             localStorage.setItem('token', response.data.token);
-            alert("Login Successfull")
+            alert("Login Successful");
             navigate('/posts');
         } catch (err) {
             setError('Login failed. Please check your credentials.');
@@ -55,6 +55,7 @@ const Login = () => {
 };
 
 export default Login;
+
 
 
 
