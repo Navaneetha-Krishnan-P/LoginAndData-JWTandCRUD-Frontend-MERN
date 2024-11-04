@@ -12,7 +12,7 @@ const Login = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('https://login-and-datas-jw-tand-crud-backend-mern.vercel.app/login', { email, password });
+            const response = await axios.post('https://loginanddatas-jwtandcrud-backend-mern-1.onrender.com/login', { email, password });
             localStorage.setItem('token', response.data.token);
             alert("Login Successful");
             navigate('/posts');
@@ -55,6 +55,7 @@ const Login = () => {
 };
 
 export default Login;
+
 
 
 

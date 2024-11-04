@@ -10,8 +10,8 @@ const PostForm = () => {
 
     const fetchPosts = async () => {
         const token = localStorage.getItem('token');
-        const response = await axios.get('https://login-and-datas-jw-tand-crud-backend-mern.vercel.app/posts', {
-            headers: { Authorization: `Bearer ${token}` },
+        const response = await axios.get('https://loginanddatas-jwtandcrud-backend-mern-1.onrender.com/posts', {
+            headers: { Authorization: `Bearer ${token}` }, 
         });
         setPosts(response.data);
     };
@@ -23,30 +23,34 @@ const PostForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const token = localStorage.getItem('token');
-        if (editingPostId) {
-            await axios.put(`https://login-and-datas-jw-tand-crud-backend-mern.vercel.app/posts/${editingPostId}`, { heading, description }, {
-                headers: { Authorization: `Bearer ${token}` },
-            });
-        } else {
-            await axios.post('https://login-and-datas-jw-tand-crud-backend-mern.vercel.app/posts', { heading, description }, {
-                headers: { Authorization: `Bearer ${token}` },
-            });
+        try {
+            if (editingPostId) {
+                await axios.put(`https://loginanddatas-jwtandcrud-backend-mern-1.onrender.com/posts/${editingPostId}`, { heading, description }, {
+                    headers: { Authorization: `Bearer ${token}` },
+                });
+            } else {
+                await axios.post('https://loginanddatas-jwtandcrud-backend-mern-1.onrender.com/posts', { heading, description }, {
+                    headers: { Authorization: `Bearer ${token}` },
+                });
+            }
+            setHeading('');
+            setDescription('');
+            setEditingPostId(null);
+            fetchPosts();
+        } catch (error) {
+            console.error(error);
         }
-        setHeading('');
-        setDescription('');
-        setEditingPostId(null);
-        fetchPosts();
     };
 
     const handleEdit = (post) => {
-        setEditingPostId(post._id);
         setHeading(post.heading);
         setDescription(post.description);
+        setEditingPostId(post._id);
     };
 
     const handleDelete = async (id) => {
         const token = localStorage.getItem('token');
-        await axios.delete(`https://login-and-datas-jw-tand-crud-backend-mern.vercel.app/posts/${id}`, {
+        await axios.delete(`https://loginanddatas-jwtandcrud-backend-mern-1.onrender.com/posts/${id}`, {
             headers: { Authorization: `Bearer ${token}` },
         });
         fetchPosts();
@@ -54,7 +58,7 @@ const PostForm = () => {
 
     return (
         <Paper elevation={3} className="responsive-paper">
-            <Typography variant="h5" align="center">{editingPostId ? 'Edit Post' : 'Create Post'}</Typography>
+            <Typography variant="h5" align="center">Create Post</Typography>
             <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column' }}>
                 <TextField
                     label="Heading"
@@ -68,8 +72,6 @@ const PostForm = () => {
                     label="Description"
                     variant="outlined"
                     margin="normal"
-                    multiline
-                    rows={4}
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                     required
@@ -78,12 +80,13 @@ const PostForm = () => {
                     {editingPostId ? 'Update Post' : 'Create Post'}
                 </Button>
             </form>
+            <Typography variant="h6" align="center" style={{ marginTop: 20 }}>Posts</Typography>
             <List>
-                {posts.map((post) => (
+                {posts.map(post => (
                     <ListItem key={post._id}>
                         <ListItemText primary={post.heading} secondary={post.description} />
                         <Button onClick={() => handleEdit(post)}>Edit</Button>
-                        <Button onClick={() => handleDelete(post._id)} color="error">Delete</Button>
+                        <Button onClick={() => handleDelete(post._id)} color="secondary">Delete</Button>
                     </ListItem>
                 ))}
             </List>
@@ -92,6 +95,7 @@ const PostForm = () => {
 };
 
 export default PostForm;
+
 
 
 
